@@ -1,0 +1,107 @@
+Algoritmo CarritoCompras
+    // ---- Declaraciones ----
+    Definir nombreProductos Como Cadena
+    Definir precioProductos Como Real
+    Definir stockProductos Como Entero
+	
+    Dimension nombreProductos[5]     // usaremos índices 1..4
+    Dimension precioProductos[5]
+    Dimension stockProductos[5]
+	
+    Definir i, cantidad, metodoPago, continuar, opSel Como Entero
+    Definir subtotal, iva, totalConIva, descuento, totalPagar Como Real
+	
+    // ---- Registro inicial de inventario ----
+    Escribir "=== Registro de Inventario (4 productos) ==="
+    Para i <- 1 Hasta 4 Hacer
+        Repetir
+            Escribir "Nombre del producto ", i, ": " Sin Saltar
+            Leer nombreProductos[i]
+        Hasta Que Longitud(nombreProductos[i]) > 0
+		
+        Repetir
+            Escribir "Precio: " Sin Saltar
+            Leer precioProductos[i]
+        Hasta Que precioProductos[i] > 0
+		
+        Repetir
+            Escribir "Cantidad en stock: " Sin Saltar
+            Leer stockProductos[i]
+        Hasta Que stockProductos[i] >= 0
+    FinPara
+	
+    // ---- Ciclo de compras ----
+    continuar <- 1
+    Mientras continuar = 1 Hacer
+        subtotal <- 0
+		
+        // Selección de productos
+        Repetir
+            Escribir ""
+            Escribir "=== MENU DE COMPRA ==="
+            Para i <- 1 Hasta 4 Hacer
+                Escribir i, ". ", nombreProductos[i], " - $", precioProductos[i], " - Stock: ", stockProductos[i]
+            FinPara
+            Escribir "5. Terminar selección"
+            Escribir "Elija producto (1-4) o 5 para terminar: " Sin Saltar
+            Leer opSel
+			
+            Si opSel >= 1 Y opSel <= 4 Entonces
+                Si stockProductos[opSel] > 0 Entonces
+                    Escribir "Cantidad de ", nombreProductos[opSel], ": " Sin Saltar
+                    Leer cantidad
+                    Si cantidad >= 1 Y cantidad <= stockProductos[opSel] Entonces
+                        subtotal <- subtotal + (cantidad * precioProductos[opSel])
+                        stockProductos[opSel] <- stockProductos[opSel] - cantidad
+                        Escribir "Agregado. Stock de ", nombreProductos[opSel], " ahora: ", stockProductos[opSel]
+                    SiNo
+                        Escribir "Cantidad inválida. Disponible: ", stockProductos[opSel]
+                    FinSi
+                SiNo
+                    Escribir "Producto agotado."
+                FinSi
+            SiNo
+                Si opSel <> 5 Entonces
+                    Escribir "Opción inválida."
+                FinSi
+            FinSi
+        Hasta Que opSel = 5
+		
+        // Totales + IVA
+        iva <- subtotal * 0.19
+        totalConIva <- subtotal + iva
+		
+        Escribir ""
+        Escribir "Subtotal: $", subtotal
+        Escribir "IVA (19%): $", iva
+        Escribir "Total con IVA: $", totalConIva
+		
+        // Método de pago y descuentos
+        Escribir ""
+        Escribir "Método de pago:"
+        Escribir "1. Efectivo (10% desc.)"
+        Escribir "2. Tarjeta (5% desc.)"
+        Escribir "3. Transferencia (sin descuento)"
+        Leer metodoPago
+		
+        descuento <- 0
+        Segun metodoPago Hacer
+            1: descuento <- totalConIva * 0.10
+            2: descuento <- totalConIva * 0.05
+            3: descuento <- 0
+            De Otro Modo:
+                Escribir "Método inválido. Se aplica 0%."
+        FinSegun
+		
+        totalPagar <- totalConIva - descuento
+        Escribir "Descuento: $", descuento
+        Escribir "TOTAL A PAGAR: $", totalPagar
+		
+        // Continuar o salir
+        Escribir ""
+        Escribir "¿Desea realizar otra compra? (1=Sí, 0=No): " Sin Saltar
+        Leer continuar
+    FinMientras
+	
+    Escribir "Gracias por su compra. ¡Vuelva pronto!"
+FinAlgoritmo

@@ -1,0 +1,125 @@
+Algoritmo Calculadora_Geometrica
+	
+    // DECLARACIÓN DE VARIABLES
+	
+    Definir opcionPrincipal, opcionSubmenu Como Entero;
+    Definir base, altura, radio, largo, ancho, resultado Como Real;
+	
+    // BUCLE PRINCIPAL DEL PROGRAMA
+	
+    Repetir
+        Limpiar Pantalla; // Limpia la consola para mostrar el menú de forma ordenada
+		
+        Escribir "=== CALCULADORA GEOMÉTRICA ===";
+        Escribir "1. Áreas";
+        Escribir "2. Volúmenes";
+        Escribir "3. Salir";
+        Leer opcionPrincipal;
+		
+		
+        // SELECCIÓN DE CATEGORÍA PRINCIPAL
+		
+        Segun opcionPrincipal Hacer
+			
+				// OPCIÓN 1: ÁREAS
+            1:
+                Repetir
+                    Limpiar Pantalla;
+                    Escribir "--- CÁLCULO DE ÁREAS ---";
+                    Escribir "1. Triángulo";
+                    Escribir "2. Rectángulo";
+                    Escribir "3. Círculo";
+                    Escribir "4. Volver";
+                    Leer opcionSubmenu;
+					
+                    Segun opcionSubmenu Hacer
+                        1: // Área del triángulo
+                            Escribir "Ingrese la base:";
+                            Leer base;
+                            Escribir "Ingrese la altura:";
+                            Leer altura;
+                            resultado <- (base * altura) / 2;
+                            Escribir "Área del triángulo = ", resultado;
+                        2: // Área del rectángulo
+                            Escribir "Ingrese el largo:";
+                            Leer largo;
+                            Escribir "Ingrese el ancho:";
+                            Leer ancho;
+                            resultado <- largo * ancho;
+                            Escribir "Área del rectángulo = ", resultado;
+                        3: // Área del círculo
+                            Escribir "Ingrese el radio:";
+                            Leer radio;
+                            resultado <- PI * (radio ^ 2);
+                            Escribir "Área del círculo = ", resultado;
+                        4:
+                            Escribir "Volviendo al menú principal...";
+                        De Otro Modo:
+                            Escribir "X Opción inválida.";
+                    FinSegun;
+					
+                    Si opcionSubmenu <> 4 Entonces
+                        Escribir "Presione ENTER para continuar...";
+                        Esperar Tecla;
+                    FinSi;
+                Hasta Que opcionSubmenu = 4;
+				
+				// OPCIÓN 2: VOLÚMENES
+				
+            2:
+                Repetir
+                    Limpiar Pantalla;
+                    Escribir "--- CÁLCULO DE VOLÚMENES ---";
+                    Escribir "1. Esfera";
+                    Escribir "2. Cilindro";
+                    Escribir "3. Cono";
+                    Escribir "4. Volver";
+                    Leer opcionSubmenu;
+					
+                    Segun opcionSubmenu Hacer
+                        1: // Volumen de la esfera
+                            Escribir "Ingrese el radio:";
+                            Leer radio;
+                            resultado <- (4/3) * PI * (radio ^ 3);
+                            Escribir "Volumen de la esfera = ", resultado;
+                        2: // Volumen del cilindro
+                            Escribir "Ingrese el radio de la base:";
+                            Leer radio;
+                            Escribir "Ingrese la altura:";
+                            Leer altura;
+                            resultado <- PI * (radio ^ 2) * altura;
+                            Escribir "Volumen del cilindro = ", resultado;
+                        3: // Volumen del cono
+                            Escribir "Ingrese el radio de la base:";
+                            Leer radio;
+                            Escribir "Ingrese la altura:";
+                            Leer altura;
+                            resultado <- (PI * (radio ^ 2) * altura) / 3;
+                            Escribir "Volumen del cono = ", resultado;
+                        4:
+                            Escribir "Volviendo al menú principal...";
+                        De Otro Modo:
+                            Escribir "X Opción inválida.";
+                    FinSegun;
+					
+                    Si opcionSubmenu <> 4 Entonces
+                        Escribir "Presione ENTER para continuar...";
+                        Esperar Tecla;
+                    FinSi;
+                Hasta Que opcionSubmenu = 4;
+				
+				// OPCIÓN 3: SALIR
+				
+            3:
+                Escribir "Gracias por usar la calculadora geométrica.";
+				
+				// OPCIÓN INVALIDA
+            De Otro Modo:
+                Escribir "X Opción inválida. Intente nuevamente.";
+                Escribir "Presione ENTER para continuar...";
+                Esperar Tecla;
+        FinSegun;
+		
+    Hasta Que opcionPrincipal = 3;
+
+FinAlgoritmo

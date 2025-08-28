@@ -1,0 +1,84 @@
+Algoritmo Calculadora_Interactiva
+    // -------------------------------
+    // Calculadora interactiva básica
+    // Funciones: suma, resta, multiplicación y división
+    // Incluye validación, par/impar y repetición hasta salir
+    // -------------------------------
+	
+    Definir opcion, num1, num2, resultado Como Real;
+    Definir salir Como Logico;
+	
+    salir <- Falso;
+	
+    Repetir
+        Limpiar Pantalla;
+        Escribir "=============================";
+        Escribir "   CALCULADORA INTERACTIVA   ";
+        Escribir "=============================";
+        Escribir "1. Sumar";
+        Escribir "2. Restar";
+        Escribir "3. Multiplicar";
+        Escribir "4. Dividir";
+        Escribir "5. Salir";
+        Escribir "-----------------------------";
+        Escribir "Seleccione una opcion: ";
+        Leer opcion;
+		
+        Segun opcion Hacer
+            1: 
+                Escribir "Ingrese el primer numero: ";
+                Leer num1;
+                Escribir "Ingrese el segundo numero: ";
+                Leer num2;
+                resultado <- num1 + num2;
+                Escribir "Resultado de la suma: ", resultado;
+            2:
+                Escribir "Ingrese el primer numero: ";
+                Leer num1;
+                Escribir "Ingrese el segundo numero: ";
+                Leer num2;
+                resultado <- num1 - num2;
+                Escribir "Resultado de la resta: ", resultado;
+            3:
+                Escribir "Ingrese el primer numero: ";
+                Leer num1;
+                Escribir "Ingrese el segundo numero: ";
+                Leer num2;
+                resultado <- num1 * num2;
+                Escribir "Resultado de la multiplicacion: ", resultado;
+            4:
+                Escribir "Ingrese el primer numero: ";
+                Leer num1;
+                Escribir "Ingrese el segundo numero: ";
+                Leer num2;
+                Si num2 = 0 Entonces
+                    Escribir "Error: No se puede dividir entre 0.";
+                SiNo
+                    resultado <- num1 / num2;
+                    Escribir "Resultado de la division: ", resultado;
+                FinSi
+            5:
+                Escribir "Saliendo de la calculadora...";
+                salir <- Verdadero;
+            De Otro Modo:
+                Escribir "Opcion invalida. Intente de nuevo.";
+        FinSegun;
+		
+        // Verificar si hay resultado válido (no aplica si fue salir o error en division)
+        Si (opcion >= 1 Y opcion <= 4) Y NO(opcion = 4 Y num2 = 0) Entonces
+            Si resultado % 2 = 0 Entonces
+                Escribir "El resultado es PAR.";
+            SiNo
+                Escribir "El resultado es IMPAR.";
+            FinSi
+        FinSi
+		
+        Si salir = Falso Entonces
+            Escribir "";
+            Escribir "Presione ENTER para continuar...";
+            Esperar Tecla;
+        FinSi
+		
+    Hasta Que salir = Verdadero;
+	
+FinAlgoritmo

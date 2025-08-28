@@ -1,0 +1,64 @@
+Algoritmo ConversorUnidades
+    Definir cantidad, resultado Como Real;
+    Definir salir Como Logico;
+    Definir opcion Como Entero;
+	
+    // "Constantes" de conversión
+    Definir KM_MILLA, PULGADA_CM, LIBRA_KG, LITRO_GALON Como Real;
+	
+    KM_MILLA <- 0.621371;
+    PULGADA_CM <- 2.54;
+    LIBRA_KG <- 0.453592;
+    LITRO_GALON <- 0.264172;
+	
+    salir <- Falso;
+	
+    Repetir
+        Limpiar Pantalla;
+		
+        Escribir "=== Conversor de Unidades ===";
+        Escribir "1. Kilómetros a Millas";
+        Escribir "2. Pulgadas a Centímetros";
+        Escribir "3. Libras a Kilogramos";
+        Escribir "4. Litros a Galones";
+        Escribir "5. Salir";
+        Escribir "Seleccione una opción: " Sin Saltar;
+        Leer opcion;
+		
+        Segun opcion Hacer
+            1:
+                Escribir "Ingrese la cantidad en kilómetros: " Sin Saltar;
+                Leer cantidad;
+                resultado <- cantidad * KM_MILLA;
+                Escribir cantidad, " km equivalen a ", resultado, " millas.";
+            2:
+                Escribir "Ingrese la cantidad en pulgadas: " Sin Saltar;
+                Leer cantidad;
+                resultado <- cantidad * PULGADA_CM;
+                Escribir cantidad, " pulgadas equivalen a ", resultado, " centímetros.";
+            3:
+                Escribir "Ingrese la cantidad en libras: " Sin Saltar;
+                Leer cantidad;
+                resultado <- cantidad * LIBRA_KG;
+                Escribir cantidad, " libras equivalen a ", resultado, " kilogramos.";
+            4:
+                Escribir "Ingrese la cantidad en litros: " Sin Saltar;
+                Leer cantidad;
+                resultado <- cantidad * LITRO_GALON;
+                Escribir cantidad, " litros equivalen a ", resultado, " galones.";
+            5:
+                salir <- Verdadero;
+            De Otro Modo:
+                Escribir "Opción inválida, intente de nuevo.";
+        FinSegun;
+		
+        Si No salir Entonces
+            Escribir "";
+            Escribir "Presione ENTER para continuar...";
+            Leer cantidad; // solo para pausar
+        FinSi;
+		
+    Hasta Que salir = Verdadero;
+	
+    Escribir "Gracias por usar el conversor de unidades. ¡Adiós!";
+FinAlgoritmo

@@ -1,0 +1,147 @@
+Algoritmo Monitoreo_De_Sensores
+	
+    Definir numSensores, i Como Entero;
+    Definir temperatura, sumaC, sumaF Como Real;
+    Definir contBajos, contAltos, contNormales Como Entero;
+    Definir opcion Como Entero;
+    Definir datosCargados Como Logico;
+	
+    // Inicializacion
+    numSensores <- 0;
+    sumaC <- 0;
+    sumaF <- 0;
+    contBajos <- 0;
+    contAltos <- 0;
+    contNormales <- 0;
+    datosCargados <- Falso;
+	
+    Repetir
+        Limpiar Pantalla;
+        Escribir "====== MENU PRINCIPAL ======";
+        Escribir "1. Configurar cantidad de sensores";
+        Escribir "2. Ingresar lecturas validadas (0 a 100 grados C)";
+        Escribir "3. Mostrar resumen y analisis";
+        Escribir "4. Reiniciar lecturas";
+        Escribir "5. Salir";
+        Escribir "Seleccione una opcion:";
+        Leer opcion;
+		
+        Segun opcion Hacer
+			
+            1: // Configurar cantidad de sensores
+                Repetir
+                    Limpiar Pantalla;
+                    Escribir "Ingrese la cantidad de sensores (entero mayor que 0):";
+                    Leer numSensores;
+                    Si numSensores <= 0 Entonces
+                        Escribir "Valor invalido. Intente de nuevo.";
+                        Escribir "Presione ENTER para continuar...";
+                        Esperar Tecla;
+                    FinSi;
+                Hasta Que numSensores > 0;
+				
+                // Reiniciar acumulados al cambiar la cantidad
+                sumaC <- 0;
+                sumaF <- 0;
+                contBajos <- 0;
+                contAltos <- 0;
+                contNormales <- 0;
+                datosCargados <- Falso;
+				
+                Escribir "Cantidad de sensores establecida en: ", numSensores, ".";
+                Escribir "Presione ENTER para continuar...";
+                Esperar Tecla;
+				
+            2: // Ingresar lecturas con validacion 0..100
+                Si numSensores <= 0 Entonces
+                    Escribir "Primero configure la cantidad de sensores (opcion 1).";
+                    Escribir "Presione ENTER para continuar...";
+                    Esperar Tecla;
+                SiNo
+                    // Limpiar acumulados antes de cargar
+                    sumaC <- 0;
+                    sumaF <- 0;
+                    contBajos <- 0;
+                    contAltos <- 0;
+                    contNormales <- 0;
+					
+                    Para i <- 1 Hasta numSensores Con Paso 1 Hacer
+                        Repetir
+                            Limpiar Pantalla;
+                            Escribir "Ingrese la temperatura del sensor ", i, " de ", numSensores, " (0 a 100 grados C):";
+                            Leer temperatura;
+                            Si (temperatura < 0) O (temperatura > 100) Entonces
+                                Escribir "Fuera de rango. Debe estar entre 0 y 100 grados C.";
+                                Escribir "Presione ENTER para reintentar...";
+                                Esperar Tecla;
+                            FinSi;
+                        Hasta Que (temperatura >= 0) Y (temperatura <= 100);
+						
+                        // Acumular temperaturas y clasificar rangos
+                        sumaC <- sumaC + temperatura;
+                        sumaF <- sumaF + (temperatura * 9 / 5 + 32);
+						
+                        Si temperatura < 20 Entonces
+                            contBajos <- contBajos + 1;
+                        SiNo
+                            Si temperatura > 80 Entonces
+                                contAltos <- contAltos + 1;
+                            SiNo
+                                contNormales <- contNormales + 1;
+                            FinSi;
+                        FinSi;
+                    FinPara;
+					
+                    datosCargados <- Verdadero;
+                    Escribir "Lecturas registradas correctamente.";
+                    Escribir "Presione ENTER para continuar...";
+                    Esperar Tecla;
+                FinSi;
+				
+            3: // Mostrar resumen y analisis
+                Si No datosCargados Entonces
+                    Escribir "Aun no hay lecturas cargadas. Use la opcion 2.";
+                    Escribir "Presione ENTER para continuar...";
+                    Esperar Tecla;
+                SiNo
+                    Limpiar Pantalla;
+					
+                    Escribir "====== RESUMEN DE SENSORES ======";
+                    Escribir "Sensores monitoreados: ", numSensores, ".";
+                    Escribir "Suma total en grados C: ", sumaC, ".";
+                    Escribir "Suma total convertida a grados F (como si fuera un unico valor): ", (sumaC * 9 / 5 + 32), ".";
+                    Escribir "Suma en grados F equivalente (sumando cada lectura ya convertida): ", sumaF, ".";
+                    Escribir "";
+                    Escribir "Clasificacion por rangos:";
+                    Escribir "- Bajos  (menor a 20 grados C): ", contBajos, ".";
+                    Escribir "- Normales (entre 20 y 80 grados C): ", contNormales, ".";
+                    Escribir "- Altos  (mayor a 80 grados C): ", contAltos, ".";
+                    Escribir "";
+                    Escribir "Presione ENTER para continuar...";
+                    Esperar Tecla;
+                FinSi;
+				
+            4: // Reiniciar lecturas (mantiene numSensores)
+                sumaC <- 0;
+                sumaF <- 0;
+                contBajos <- 0;
+                contAltos <- 0;
+                contNormales <- 0;
+                datosCargados <- Falso;
+				
+                Escribir "Lecturas reiniciadas. Cantidad de sensores actual: ", numSensores, ".";
+                Escribir "Presione ENTER para continuar...";
+                Esperar Tecla;
+				
+            5: // Salir
+                Escribir "Saliendo del sistema. Gracias.";
+                // no esperar tecla para permitir salir directo si quieres
+				
+            De Otro Modo:
+                Escribir "Opcion no valida. Intente de nuevo.";
+                Escribir "Presione ENTER para continuar...";
+                Esperar Tecla;
+        FinSegun;
+    Hasta Que opcion = 5;
+	
+FinAlgoritmo
